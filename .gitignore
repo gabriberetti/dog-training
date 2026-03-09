@@ -1,0 +1,9 @@
+# Reference PDFs (copyrighted material)
+*.pdf
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Old/unused assets
+paw-icon.png
