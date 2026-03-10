@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>The Dog Blueprint — The Complete Dog Training Manual | Gabriele Beretti</title>
     <meta name="description" content="The Dog Blueprint is a practical, no-nonsense guide to raising a well-behaved dog — from the first 72 hours through adolescence and beyond. Covers potty training, crate training, obedience, socialisation, leash walking, and more.">
     <meta name="robots" content="index, follow">
@@ -78,15 +78,27 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap');
 
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Georgia, 'Literata', serif;
-            font-size: 18px;
+            font-size: clamp(16px, 2.4vw, 18px);
             line-height: 1.6;
             max-width: 65ch;
             margin: 0 auto;
             padding: 3rem 1.5rem;
+            padding-left: max(1.5rem, env(safe-area-inset-left));
+            padding-right: max(1.5rem, env(safe-area-inset-right));
+            padding-bottom: max(3rem, env(safe-area-inset-bottom));
             color: #1a1a1a;
             background: #faf9f6;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         h1, h2, h3, h4 {
@@ -101,12 +113,12 @@
 
         .title-page {
             text-align: center;
-            padding: 40px 0 60px;
+            padding: clamp(20px, 5vw, 40px) 0 clamp(30px, 6vw, 60px);
             page-break-after: always;
         }
         .title-page img {
             max-width: 100%;
-            width: 420px;
+            width: min(420px, 85vw);
             height: auto;
             display: block;
             margin: 0 auto;
@@ -115,7 +127,7 @@
         .copyright {
             font-size: 0.8rem;
             line-height: 1.5;
-            margin: 80px 0;
+            margin: clamp(40px, 8vw, 80px) 0;
             page-break-after: always;
         }
 
@@ -123,7 +135,7 @@
             text-align: center;
             font-style: italic;
             font-size: 1.05rem;
-            padding: 140px 40px;
+            padding: clamp(60px, 15vw, 140px) clamp(16px, 5vw, 40px);
             page-break-after: always;
         }
 
@@ -146,7 +158,7 @@
 
         .part-header {
             text-align: center;
-            padding: 160px 0 50px;
+            padding: clamp(80px, 15vw, 160px) 0 clamp(30px, 5vw, 50px);
             page-break-before: always;
         }
         .part-header h2 {
@@ -157,14 +169,14 @@
             font-weight: 600;
         }
         .part-header h3 {
-            font-size: 1.7rem;
+            font-size: clamp(1.3rem, 4vw, 1.7rem);
             margin: 0;
             font-weight: 700;
         }
 
         .chapter-header {
             text-align: center;
-            padding: 50px 0 36px;
+            padding: clamp(30px, 5vw, 50px) 0 clamp(20px, 4vw, 36px);
             page-break-before: always;
         }
         .chapter-header .ch-num {
@@ -174,7 +186,7 @@
             margin: 0 0 8px;
         }
         .chapter-header h3 {
-            font-size: 1.4rem;
+            font-size: clamp(1.15rem, 3.5vw, 1.4rem);
             margin: 0;
             font-weight: 700;
         }
@@ -186,6 +198,15 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             color: #333;
+        }
+
+        ul {
+            padding-left: 1.5em;
+            margin: 0 0 1.4em;
+        }
+        ul li {
+            margin-bottom: 0.4em;
+            line-height: 1.6;
         }
 
         .break {
@@ -224,11 +245,14 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 280px;
+            width: min(280px, 85vw);
             height: 100vh;
+            height: 100dvh;
             background: #faf9f6;
             border-right: 1px solid #e0ddd6;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
             font-family: 'Inter', Helvetica, sans-serif;
             font-size: 0.75rem;
             line-height: 1.5;
@@ -236,6 +260,9 @@
             transform: translateX(-100%);
             transition: transform 0.3s ease;
             padding: 1.5rem 1.2rem 2rem;
+            padding-top: max(1.5rem, env(safe-area-inset-top));
+            padding-bottom: max(2rem, env(safe-area-inset-bottom));
+            padding-left: max(1.2rem, env(safe-area-inset-left));
             box-sizing: border-box;
         }
         #toc-sidebar.open { transform: translateX(0); }
@@ -260,9 +287,16 @@
             border: none;
             font-size: 1.2rem;
             color: #888;
+            min-width: 44px;
+            min-height: 44px;
             padding: 2px 6px;
             border-radius: 4px;
             transition: color 0.2s, background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         #toc-sidebar .toc-close:hover { color: #e07c3a; background: rgba(0,0,0,0.05); }
         .toc-part-group { margin-bottom: 0.6rem; }
@@ -276,9 +310,12 @@
             font-size: 0.65rem;
             letter-spacing: 1px;
             text-transform: uppercase;
-            padding: 6px 0;
+            padding: 12px 0;
+            min-height: 44px;
             user-select: none;
             transition: color 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         .toc-part-label:hover { color: #e07c3a; }
         .toc-part-arrow {
@@ -295,11 +332,13 @@
         .toc-part-group.expanded .toc-part-chapters { max-height: 600px; }
         #toc-sidebar a {
             display: block;
-            padding: 4px 0 4px 14px;
+            padding: 10px 0 10px 14px;
+            min-height: 44px;
             color: #888;
             text-decoration: none;
             border-left: 2px solid transparent;
             transition: color 0.2s, border-color 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
         #toc-sidebar a:hover { color: #1a1a1a; }
         #toc-sidebar a.active {
@@ -309,18 +348,25 @@
         }
         #toc-hamburger {
             position: fixed;
-            top: 1rem;
-            left: 1.2rem;
+            top: max(1rem, env(safe-area-inset-top, 1rem));
+            left: max(1.2rem, env(safe-area-inset-left, 1.2rem));
             z-index: 999;
             cursor: pointer;
             background: #faf9f6;
             border: 1px solid #ddd;
             border-radius: 6px;
+            min-width: 44px;
+            min-height: 44px;
             padding: 6px 10px;
             font-size: 1.1rem;
             color: #888;
             transition: color 0.2s, border-color 0.2s, background 0.2s;
             line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         #toc-hamburger:hover { color: #e07c3a; border-color: #e07c3a; }
         #toc-overlay {
@@ -396,10 +442,10 @@
         /* --- Dark Mode Toggle --- */
         #dark-toggle {
             position: fixed;
-            top: 1rem;
-            right: 1.5rem;
-            width: 40px;
-            height: 40px;
+            top: max(1rem, env(safe-area-inset-top, 1rem));
+            right: max(1.5rem, env(safe-area-inset-right, 1.5rem));
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             border: 1.5px solid #ccc;
             background: transparent;
@@ -410,6 +456,8 @@
             align-items: center;
             justify-content: center;
             transition: background 0.3s, border-color 0.3s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         #dark-toggle:hover { border-color: #e07c3a; }
 
@@ -450,8 +498,8 @@
         /* --- Back to Top --- */
         #back-to-top {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+            bottom: max(2rem, env(safe-area-inset-bottom, 2rem));
+            right: max(2rem, env(safe-area-inset-right, 2rem));
             width: 44px;
             height: 44px;
             border-radius: 50%;
@@ -468,6 +516,8 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         #back-to-top.visible {
             opacity: 1;
@@ -477,11 +527,68 @@
             background: #e07c3a;
         }
 
+        /* ===== RESPONSIVE: TABLET (601-1024px) ===== */
+        @media (max-width: 1024px) {
+            body {
+                padding: 2.5rem 1.25rem;
+                padding-left: max(1.25rem, env(safe-area-inset-left));
+                padding-right: max(1.25rem, env(safe-area-inset-right));
+            }
+            .title-page img {
+                width: min(380px, 80vw);
+            }
+        }
+
+        /* ===== RESPONSIVE: MOBILE (<600px) ===== */
         @media (max-width: 600px) {
             body {
-                font-size: 17px;
                 padding: 1.5rem 1rem;
+                padding-left: max(1rem, env(safe-area-inset-left));
+                padding-right: max(1rem, env(safe-area-inset-right));
+                padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
             }
+            .title-page {
+                padding: 16px 0 24px;
+            }
+            .title-page img {
+                width: min(320px, 90vw);
+            }
+            .dedication {
+                padding: 40px 16px;
+            }
+            .part-header {
+                padding: 60px 0 24px;
+            }
+            .chapter-header {
+                padding: 24px 0 16px;
+            }
+            h4 {
+                margin: 2em 0 0.8em;
+            }
+            p {
+                margin-bottom: 1.2em;
+            }
+            #dark-toggle {
+                top: max(0.6rem, env(safe-area-inset-top, 0.6rem));
+                right: max(0.8rem, env(safe-area-inset-right, 0.8rem));
+            }
+            #back-to-top {
+                bottom: max(1.2rem, env(safe-area-inset-bottom, 1.2rem));
+                right: max(1rem, env(safe-area-inset-right, 1rem));
+            }
+            #toc-sidebar {
+                width: min(280px, 90vw);
+            }
+            #toc-hamburger {
+                top: max(0.6rem, env(safe-area-inset-top, 0.6rem));
+                left: max(0.8rem, env(safe-area-inset-left, 0.8rem));
+            }
+        }
+
+        /* ===== RESPONSIVE: IMAGES ===== */
+        img {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
