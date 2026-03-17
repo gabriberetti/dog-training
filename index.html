@@ -1840,7 +1840,7 @@
             var h2 = el.querySelector('h2');
             if (h2) partText = h2.textContent;
             if (h3) partText += (partText ? ': ' : '') + h3.textContent;
-            label.innerHTML = '<span>' + partText + '</span><span class="toc-part-arrow">&#9654;</span>';
+            label.innerHTML = '<span>' + partText + '</span><span class="toc-part-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></span>';
 
             label.addEventListener('click', function() {
                 group.classList.toggle('expanded');
